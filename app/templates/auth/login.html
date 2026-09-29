@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="form-card narrow">
+    <h1>Login</h1>
+    <p class="muted">Use your registered ACC Portal account.</p>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+
+        <div class="field">
+            {{ form.email.label }}
+            {{ form.email(class="input") }}
+            {% for error in form.email.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="field">
+            {{ form.password.label }}
+            {{ form.password(class="input") }}
+            {% for error in form.password.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        {{ form.submit(class="button full") }}
+    </form>
+</div>
+{% endblock %}

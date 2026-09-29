@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h1>Create Student Account</h1>
+    <p class="muted">Complete all required information. Maximum ID file size is 5 MB.</p>
+
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        <div class="grid-2">
+            <div class="field">
+                {{ form.email.label }}
+                {{ form.email(class="input", placeholder="student@example.com") }}
+                {% for error in form.email.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+
+            <div class="field">
+                {{ form.full_name.label }}
+                {{ form.full_name(class="input", placeholder="Juan Dela Cruz") }}
+                {% for error in form.full_name.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+
+            <div class="field">
+                {{ form.password.label }}
+                {{ form.password(class="input", placeholder="At least 8 characters") }}
+                {% for error in form.password.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+
+            <div class="field">
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password(class="input") }}
+                {% for error in form.confirm_password.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+
+            <div class="field">
+                {{ form.contact_number.label }}
+                {{ form.contact_number(class="input", placeholder="+63 9XX XXX XXXX") }}
+                {% for error in form.contact_number.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+
+            <div class="field">
+                {{ form.course_program.label }}
+                {{ form.course_program(class="input", placeholder="BS Information Technology") }}
+                {% for error in form.course_program.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+        </div>
+
+        <div class="field">
+            {{ form.address.label }}
+            {{ form.address(class="input", rows="3", placeholder="Complete address") }}
+            {% for error in form.address.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        <div class="field">
+            {{ form.valid_id.label }}
+            {{ form.valid_id(class="input") }}
+            <small class="muted">Allowed: JPG, JPEG, PNG, PDF. Maximum: 5 MB.</small>
+            {% for error in form.valid_id.errors %}<small class="error">{{ error }}</small>{% endfor %}
+        </div>
+
+        {{ form.submit(class="button") }}
+    </form>
+</div>
+{% endblock %}

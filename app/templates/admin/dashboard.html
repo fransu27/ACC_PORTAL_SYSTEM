@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">ADMINISTRATION</p>
+        <h1>Portal Dashboard</h1>
+    </div>
+    <form method="post" action="{{ url_for('admin.setup_scholarships') }}" class="inline-form">
+    {{ csrf_token() }}
+    <button class="button secondary" type="submit">
+        Create Sample Scholarships
+    </button>
+</form>
+</div>
+
+<div class="stats">
+    <div class="stat card"><strong>{{ students|length }}</strong><span>Students</span></div>
+    <div class="stat card"><strong>{{ applications|length }}</strong><span>Applications</span></div>
+</div>
+
+<section class="card">
+    <div class="section-heading">
+        <h2>Scholarship Applications</h2>
+        <a href="{{ url_for('admin.students') }}">View Students</a>
+    </div>
+
+    {% if applications %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Scholarship</th>
+                <th>Status</th>
+                <th>Submitted</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.student.student.full_name }}</td>
+                <td>{{ application.scholarship.name }}</td>
+                <td><span class="status {{ application.status|lower }}">{{ application.status }}</span></td>
+                <td>{{ application.submitted_at.strftime("%Y-%m-%d") }}</td>
+                <td><a href="{{ url_for('admin.review_application', application_id=application.id) }}">Review</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="muted">No applications yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

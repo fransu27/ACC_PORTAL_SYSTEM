@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Scholarships{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">SCHOLARSHIPS</p>
+        <h1>Apply for a Scholarship</h1>
+    </div>
+</div>
+
+{% if scholarships %}
+<div class="grid-2">
+    <div>
+        {% for scholarship in scholarships %}
+        <article class="card scholarship-card">
+            <h2>{{ scholarship.name }}</h2>
+            <p>{{ scholarship.description }}</p>
+        </article>
+        {% endfor %}
+    </div>
+
+    <div class="form-card">
+        <h2>Application Form</h2>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                {{ form.scholarship_id.label }}
+                {{ form.scholarship_id(class="input") }}
+                {% for error in form.scholarship_id.errors %}<small class="error">{{ error }}</small>{% endfor %}
+            </div>
+            {{ form.submit(class="button") }}
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <h2>No scholarships available</h2>
+    <p class="muted">The administrator has not opened a scholarship yet.</p>
+</div>
+{% endif %}
+{% endblock %}

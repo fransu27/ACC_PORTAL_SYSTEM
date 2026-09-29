@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">STUDENT DASHBOARD</p>
+        <h1>Welcome, {{ user.student.full_name }}</h1>
+    </div>
+    <a class="button" href="{{ url_for('main.apply_scholarship') }}">Apply for Scholarship</a>
+</div>
+
+<div class="grid-2">
+    <section class="card">
+        <h2>Student Information</h2>
+        <dl>
+            <dt>Email</dt><dd>{{ user.email }}</dd>
+            <dt>Contact</dt><dd>{{ user.student.contact_number }}</dd>
+            <dt>Course / Program</dt><dd>{{ user.student.course_program }}</dd>
+            <dt>Address</dt><dd>{{ user.student.address }}</dd>
+            <dt>Valid ID</dt><dd>Submitted</dd>
+        </dl>
+    </section>
+
+    <section class="card">
+        <h2>Scholarship Applications</h2>
+        {% if applications %}
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Scholarship</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for application in applications %}
+                    <tr>
+                        <td>{{ application.scholarship.name }}</td>
+                        <td><span class="status {{ application.status|lower }}">{{ application.status }}</span></td>
+                        <td>{{ application.submitted_at.strftime("%Y-%m-%d") }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="muted">No scholarship applications yet.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

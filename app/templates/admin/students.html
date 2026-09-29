@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock %}
+
+{% block content %}
+<div class="page-heading">
+    <div>
+        <p class="eyebrow">ADMINISTRATION</p>
+        <h1>Registered Students</h1>
+    </div>
+    <a class="button secondary" href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+</div>
+
+<section class="card">
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course / Program</th>
+                <th>Contact</th>
+                <th>Valid ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student.full_name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.student.course_program }}</td>
+                <td>{{ student.student.contact_number }}</td>
+                <td><a target="_blank" rel="noopener" href="{{ url_for('admin.view_student_id', user_id=student.id) }}">Review ID</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">No students registered.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
